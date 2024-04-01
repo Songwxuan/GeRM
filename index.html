@@ -80,7 +80,11 @@
                 <br>
                 <li>Wenxuan Song</li> <li>Han Zhao</li> <li>Pengxiang Ding</li> <li>Can Cui</li> <li>Shangke Lyu</li> <li>Yaning Fan</li>  <li>Donglin Wang*</li>
                 <br>
-		   <i>*corresponding author</i>
+                <i>*corresponding author</i>
+                <br>
+                <span style="font-size: larger; font-weight: bold;">MiLAB, Westlake University, China</span>
+           <br>
+		   
 <!-- 		<br>
                     <a href="http://deepmind.com/">
                     <img src="./Q-Transformer_files/deepmind.png" height="50px"> </a> -->
@@ -95,14 +99,14 @@
                     <ul class="nav nav-pills nav-justified">
                         <li>
                             <a href="https://arxiv.org/pdf/2403.13358.pdf">
-                            <img src="./Q-Transformer_file/paper_small.png" height="60px">
+                            <img src="./Q-Transformer_files/paper_small.png" height="60px">
                                 <h4><strong>Paper</strong></h4>
                             </a>
                         </li>
 
                         <li>
-                            <a href="https://qtransformer.github.io/#videos">
-                            <img src="./assert_files/youtube_icon_dark.png" height="60px">
+                            <a href="https://youtu.be/tjgIxsXW0JU">
+                            <img src="./Q-Transformer_files/youtube_icon_dark.png" height="60px">
                                 <h4><strong>Videos</strong></h4>
                             </a>
                         </li>
@@ -112,9 +116,9 @@
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-		<p style="text-align:center;">
+		<!-- <p style="text-align:center;">
 	    		<img src="./Q-Transformer_files/qt_animation.gif" class="img-responsive" style="width:100%">
-		</p>
+		</p> -->
                 <h3>
                     Abstract
                 </h3>
@@ -123,188 +127,129 @@
             </div>
         </div>
 
-	<!--
-	<div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Video
-                </h3>
-                <div class="text-center">
-                    <div style="position:relative;padding-top:56.25%;">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/UuKAp9a6wMs" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-	-->
-
 <div class="row">
    <div class="col-md-8 col-md-offset-2">
 	<h3>
 	    Approach
 	</h3>
-
-        <p style="text-align:center;">
-	    <img src="./Q-Transformer_files/qt_title_overview.png" class="img-responsive" style="width:65%">
-	</p>
-	<p style="text-align:center;">
-		<img src="./Q-Transformer_files/qt_robot_frames.png" class="img-responsive" style="width:70%">
+    <p class="text-justify">
+        GeRM takes both demonstration and sub-optimal data as input. Then the images and instructions are tokenized and sent into the GeRM mixture-of-experts Transformer Decoder to generate action tokens. They are finally de-tokenized into discretized robot commands. The actions are used for RL objectives when training.
         </p>
+        <p style="text-align:center;">
+	    <img src="./Q-Transformer_files/teaser.png" class="img-responsive" style="width:100%">
+	</p>
+	<!-- <p style="text-align:center;">
+		<img src="./Q-Transformer_files/qt_robot_frames.png" class="img-responsive" style="width:70%">
+        </p> -->
 	<p class="text-justify">
-	We first describe how to enable using Transformers for Q-learning by applying discretization and autoregression of the action space.
-	The classical way for learning a Q-function using TD-learning is based on the Bellman update rule:
+	GeRM MoE Decoder is a
+    transformer decoder-only model where the Feed-Forward
+    Network (FFN) picks from a set of 8 distinct groups of
+    parameters. At every layer, for every token, the gating network
+    chooses two of the “experts to process the token and combine their output additively. Different experts
+    are proficient in different tasks/different action dimensions to
+    solve problems in different scenarios, learning a generalist
+    model across multiple tasks. This technique increases the
+    network parameter volume while keeping the computational
+    cost basically unchanged.
 	</p><p style="text-align:center;">
-	        <img src="./Q-Transformer_files/bellman_original.png" class="img-responsive" style="width:55%">
+	        <img src="./Q-Transformer_files/moe.png" class="img-responsive" style="width:75%">
 	</p>
-	<p class="text-justify">
-	We change the Bellman update to be performed for each action dimension by transforming the original MDP of the problem into an MDP where each
-	action dimension is treated as a separate step for Q-learning. In particular, given the action dimensionality <i>d<sub>A</sub></i>, the new Bellman update rule is:
-	</p>
-	<p style="text-align:center;">
-	        <img src="./Q-Transformer_files/bellman_qt.png" class="img-responsive">
-	</p>
-	<p>
-	This means that for each intermediate action dimension we maximize over the next action dimension given the same state, 
-	and for the final action dimension we use the first action dimension from the next state. This decomposition makes sure that the maximization 
-	within the Bellman update remains tractable while ensuring that we still solve the original MDP problem.
-	</p>
-		
-	<p style="text-align:center;">
-	        <img src="./Q-Transformer_files/qt_update_fig.png" class="img-responsive">
-	</p>
-	<p>
-	In order to account for the distribution shift during offline learning, we introduce a simple regularization technique 
-	that minimizes unseen actions (in the discretized case unseen action bins) to the lowest value. To accelerate learning, we also employ
-	Monte-Carlo (MC) returns that use the original return-to-go from a given episode and n-step returns that can skip per-dimension maximization.
-	</p>	    
- </div>
+    <p>
+        We utilize a vision-language-action (VLA) model to generate the robot action tokens, and then detokenize them into 12-dimension commands by low-level control policy.
+    </p>
+    <p style="text-align:center;">
+            <img src="./Q-Transformer_files/formula.png" class="img-responsive" style="width:75%">
+    </p> 
+    <p>
+        The 12-dimension commands include:
+    </p>   
+    </p>
+        <p style="text-align:center;">
+                <img src="./Q-Transformer_files/parameter.png" class="img-responsive" style="width:75%">
+        </p>
+        <p class="text-justify">
+            Finally, we utilize the effective offline RL algorithm - Deep Q-Learning to learn the optimal policy from mix-quality data.
+            Specifically, we adopt designs akin to 
+            <a href="https://arxiv.org/abs/2309.10150">Q-Transformer</a>
+            by employing the VLA model to replace the value function and output discretized action.
+        </p>
+    
+    </div>
 </div>
 	    
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+    <h3>
+        Datasets
+    </h3>
+<p class="text-justify">
+We proposed an autonomous diagram to collect robot multi-modal data. In this way, We construct a large-scale robot dataset with a combination of demonstrations and sub-optimal data. It includes 5 tasks and 99 sub-tasks, totally 257k episodes (trajectories).
+</p>
+<p style="text-align:center;">
+        <img src="./Q-Transformer_files/task.png" class="img-responsive">
+</p>
+<p style="text-align:center;">
+    <img src="./Q-Transformer_files/dataset.png" class="img-responsive" style="width:65%">
+</p>
+</div>
+</div>
+
 <div class="row" id="videos">
     <div class="col-md-8 col-md-offset-2">
 	<h3>
 	    Results and Videos
 	</h3>
 	<p class="text-justify">
-        In our experiments, we start by evaluating Q-Transformer on a suite of real world tasks introduced in the RT-1 paper while limiting the data per task to only contain 100 human demonstrations. In addition to demonstrations, we also add autonomously collected failed episodes, resulting in a dataset of 38,000 positive examples from demos and 20,000 negative autonomously collected examples.
+        We conducted a comprehensive and robust series of experiments. To ensure data fidelity and mitigate the impact of stochastic variability, our primary experiments for each model encompassed the entirety of tasks including all 99 sub-tasks, with 400 trajectories meticulously tested for each.
         </p><p style="text-align:center;">
-	    <img src="./Q-Transformer_files/real_results_table.png" class="img-responsive" style="width:65%">
+	    <img src="./Q-Transformer_files/exp.png" class="img-responsive" style="width:100%">
 	</p>
-	<p>
-	    <video id="qt-robot-videos" autoplay="" loop="" muted="" playsinline="" controls="" style="width:100%">
-       		 <source src="videos/qt_robot_videos.mp4" type="video/mp4">
-        	Your browser does not support the video tag.
-   	    </video>
-	</p>
-
-		    
-    Compared to such baselines as <a href="https://arxiv.org/abs/2212.06817">RT-1</a>,
-    <a href="https://arxiv.org/abs/2110.06169">IQL</a> and
-    <a href="https://arxiv.org/abs/2106.01345">Decision Transformer (DT)</a>, Q-Transformer can effectively utilize autonomous episodes to significantly improve on such skills as picking from and placing objects into drawers, moving objects near targets and closing and opening drawers.
-	improve on such skills as picking from and placing objects into drawers, moving objects near targets and closing and opening drawers.
-	<p></p>
-
-	<p class="text-justify">
-	We also benchmark our method in a challenging simulated picking task, where only ~8% of the data are positive examples, and the rest are
-	noisy negative examples. Q-learning methods, such as 
-    <a href="https://arxiv.org/abs/1806.10293">QT-Opt</a>
-    , 
-    <a href="https://arxiv.org/abs/2110.06169">IQL</a>
-    ,
-    <a href="https://arxiv.org/abs/2111.05424">AW-Opt</a>
-     and our Q-Transformer are generally performing better on this task
-	as they are able to utilize negative examples to learn policies through dynamic programming.
-	</p>
-	<p style="text-align:center;">
-	    <img src="./Q-Transformer_files/sim_exps.png" class="img-responsive" style="width:70%">
+    <p>
+    GeRM has the <span style="font-weight: bold;"> highest success rate</span> among all tasks. Compared to such baselines as <a href="https://arxiv.org/abs/2212.06817">RT-1</a> and other varieties of GeRM, it effectively learns from mix-quality data, outperforms other methods, and demonstrates superior capabilities in multi-tasks.
+    Meanwhile, MoE Modules balance <span style="font-weight: bold;">computational cost</span> and performance by activating part of the parameterwhen inference.
 	</p>
 	
-	<p class="text-justify">
-        Ablating our decision choices on this picking task, we notice that both the conservative regularizer and MC returns are important for retaining the performance. Switching to a Softmax regularizer, which is similar to a 
-        <a href="https://arxiv.org/abs/2006.04779">CQL</a>
-         regularizer for discrete actions, performs significantly worse as it bounds the policy too much to the distribution of the data, showing that our choice of the regularizer works better for such tasks.
+	<p class="text-justify"> 
+        GeRM exhibits commendable training efficiency. 
+        Compared to other methods, Germ achieves extremely low loss and high success rates with only a few batches. 
+        This evaluation exclusively trained with demonstrations underscores GeRM's proficiency in <span style="font-weight: bold;"> optimizing data utilization strategies</span>.
 	</p>
 	  <p style="text-align:center;">
-	    <img src="./Q-Transformer_files/qt_ablations.png" class="img-responsive" style="width:70%">
+	    <img src="./Q-Transformer_files/trend.png" class="img-responsive" style="width:100%">
 	</p>
-		  
-	<p> 
-	 We also ablate n-step returns and notice that although introducing bias they can help us achieving the same high performance in much fewer number of gradient steps,
-	making them an efficient choice in many problems.
+    <p>
+        Solid lines represent the success rate, dotted lines represent the final success rate for 20 epochs, and dashed lines represent loss. Note: RL approaches employ MSE loss, which should be scaled by 0.1, while imitation learning ways employ Cross Entropy as the loss function.
+    </p>
+    <p>
+        <div style="text-align: center;">
+        <iframe width="640" height="360" src="https://www.youtube.com/embed/tjgIxsXW0JU?si=ig-IGGukGbKrE-gq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
 	</p>
-	 <p style="text-align:center;">
-	    <img src="./Q-Transformer_files/nstep_table.png" class="img-responsive" style="width:55%">
-	</p>
-		  
-	<p class="text-justify">
-        We also try to run our Q-Transformer on a much larger dataset, scaling up the number of positive examples to 115,000 and the number of negative examples to 185,000 resulting in 300,000 episodes. Q-Transformer is still able to learn from this large dataset and even provide some improvement over the RT-1 BC baseline.
-	</p>
-		
-	 <p style="text-align:center;">
-	    <img src="./Q-Transformer_files/large_offline_results.png" class="img-responsive" style="width:43%">
-	</p>
-
-	<p class="text-justify">
-	Finally, we use the Q-function trained by Q-Transformer as an affordance model in combination with a language planner,
-	similar to the 
-    <a href="https://arxiv.org/abs/2204.01691">SayCan</a>
-    work.
-	</p>
-	 <p style="text-align:center;">
-	    <img src="./Q-Transformer_files/affordance_perf.png" class="img-responsive" style="width:55%">
-	</p>
-	<p>
-        Q-Transformer affordance estimation works better than the previously used Q-functions trained with 
-        QT-Opt
-        , especially when combined with relabeling non-sampled tasks as negatives for the current task during training. As Q-Transformer does not require sim-to-real training that was used for the 
-        QT-Opt
-        training, it makes it easier to use it in the absence of suitable simulations.
-	</p>
-
-	<p class="text-justify">
-        To test the full planning + execution system, we use Q-Transformer for both affordance estimation and the actual policy execution, where it shows to outperform the previous combination of 
-        QT-Opt
-         and 
-        RT-1.
-	</p>
-	 <p style="text-align:center;">
-	    <img src="./Q-Transformer_files/saycan_perf.png" class="img-responsive" style="width:55%">
-	</p>
-	<p>
-        </p>
-	<p>
-	    <video id="qt-saycan-videos" autoplay="" loop="" muted="" playsinline="" controls="" style="width:100%">
-       		 <source src="videos/qt_saycan.mp4" type="video/mp4">
-        	Your browser does not support the video tag.
-   	    </video>
-	</p>
-    As can be seen in the examples of task affordance values for a given image, Q-Transformer can provide high-quality affordance values that can be used in downstream plan-and-execute frameworks.
-</div>
-</div>
-
-<!--
-<div class="row">
-    <div class="col-md-8 col-md-offset-2">
-	<h3>
-	    Video
-	</h3>
-	<video id="v0" width="100%" playsinline muted loop controls>
-	       <source src="img/Q-Transformer_Video.mov" type="video/mp4">
-        </video>		
-    </div>
-</div>
--->
+    <p>
+        GeRM shows <span style="font-weight: bold;">emergent skills </span>in dynamic adaptive path planning.
+        As shown in this video, the quadruped robot's vision is limited at the initial position, hampering its ability to
+        determine the direction of movement. To avoid the obstacle it
+        turns to the left randomly. Subsequently, upon encountering
+        the incorrect visual input, the robot executes a substantial
+        reorientation to align with the correct target outside its
+        original field of view. It then proceeds to steer towards the
+        destination, ultimately accomplishing the task. Notably, such
+        trajectories were out-of-distribution of our training dataset.
+        This demonstrates that GeRM inherits novel capabilities in terms of
+        dynamic adaptive path planning in the context of the scene,
+        which means it can make decisions, plan future paths, and
+        change next-step action according to the visual perception.
+    </p>
+    
          <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
                     Citation 
                 </h3>
                 <div class="form-group col-md-10 col-md-offset-1">
-                    <textarea id="bibtex" class="form-control" readonly="" style="display: none;">@inproceedings{qtransformer,
-    title={Q-Transformer: Scalable Offline Reinforcement Learning via Autoregressive Q-Functions},
-    authors={Yevgen Chebotar and Quan Vuong and Alex Irpan and Karol Hausman and Fei Xia and Yao Lu and Aviral Kumar and Tianhe Yu and Alexander Herzog and Karl Pertsch and Keerthana Gopalakrishnan and Julian Ibarz and Ofir Nachum and Sumedh Sontakke and Grecia Salazar and Huong T Tran and Jodilyn Peralta and Clayton Tan and Deeksha Manjunath and Jaspiar Singht and Brianna Zitkovich and Tomas Jackson and Kanishka Rao and Chelsea Finn and Sergey Levine},
-    booktitle={7th Annual Conference on Robot Learning},
-    year={2023}}</textarea><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: -17px; border-right-width: 13px; min-height: 197px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure">AخA</div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 17.1375px;">&nbsp;</div></div><div class="CodeMirror-code" style=""><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">@inproceedings{qtransformer,</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"> &nbsp;  title={Q-Transformer: Scalable Offline Reinforcement Learning via Autoregressive Q-Functions},</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"> &nbsp;  authors={Yevgen Chebotar and Quan Vuong and Alex Irpan and Karol Hausman and Fei Xia and Yao Lu and Aviral Kumar and Tianhe Yu and Alexander Herzog and Karl Pertsch and Keerthana Gopalakrishnan and Julian Ibarz and Ofir Nachum and Sumedh Sontakke and Grecia Salazar and Huong T Tran and Jodilyn Peralta and Clayton Tan and Deeksha Manjunath and Jaspiar Singht and Brianna Zitkovich and Tomas Jackson and Kanishka Rao and Chelsea Finn and Sergey Levine},</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"> &nbsp;  booktitle={7th Annual Conference on Robot Learning},</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"> &nbsp;  year={2023}}</span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 197px;"></div><div class="CodeMirror-gutters" style="display: none; height: 210px;"></div></div></div>
+                    <textarea id="bibtex" class="form-control" readonly="" style="display: none;">@inproceedings{Song2024GeRMAG,title={GeRM: A Generalist Robotic Model with Mixture-of-experts for Quadruped Robot},author={Wenxuan Song and Han Zhao and Pengxiang Ding and Can Cui and Shangke Lyu and Yaning Fan and Donglin Wang},year={2024},url={https://arxiv.org/abs/2403.13358}}
+                    </textarea>
                 </div>
             </div>
         </div>
@@ -315,22 +260,6 @@
                 </p>
             </div>
         </div>
-<!--
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Acknowledgements
-                </h3>
-                <p class="text-justify">
-The authors would like to acknowledge TODO and the greater teams at Google DeepMind for their feedback and contributions.
-                    <br><br>
-                The website template was borrowed from <a href="http://jonbarron.info/">Jon Barron</a>.
-                </p>
-            </div>
-        </div>
-    </div>
-	    -->
-
 
 </div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
       div.grammarly-desktop-integration {
