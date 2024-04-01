@@ -17,13 +17,13 @@
     <meta property="og:image:height" content="682">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://qtransformer.github.io/">
-    <meta property="og:title" content="Q-Transformer">
-    <meta property="og:description" content="Project page for Q-Transformer.">
+    <meta property="og:title" content="GeRM">
+    <meta property="og:description" content="Project page for GeRM.">
 
         <!--TWITTER-->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Q-Transformer">
-    <meta name="twitter:description" content="Project page for Q-Transformer.">
+    <meta name="twitter:title" content="GeRM">
+    <meta name="twitter:description" content="Project page for GeRM.">
     <meta name="twitter:image" content="https://qtransformer.github.io/img/qt_title_overview.png">
 
 
@@ -71,7 +71,7 @@
     <div class="container" id="main">
         <div class="row">
             <h2 class="col-md-12 text-center">
-                <strong><font size="+6">GeRM: </font></strong> <br> A Generalist Robotic Model with Mixture-of-experts for Quadruped Robots <br> 
+                <strong><font size="+6">GeRM: </font></strong> <br> A <span style="font-weight: bold;">Ge</span>neralist <span style="font-weight: bold;">R</span>obotic <span style="font-weight: bold;">M</span>odel with Mixture-of-experts for Quadruped Robots <br> 
             </h2>
         </div>
         <div class="row">
@@ -84,10 +84,6 @@
                 <br>
                 <span style="font-size: larger; font-weight: bold;">MiLAB, Westlake University, China</span>
            <br>
-		   
-<!-- 		<br>
-                    <a href="http://deepmind.com/">
-                    <img src="./germ_files/deepmind.png" height="50px"> </a> -->
                     
                 </ul>
             </div>
@@ -171,7 +167,7 @@
         <p class="text-justify">
             Finally, we utilize the effective offline RL algorithm - Deep Q-Learning to learn the optimal policy from mix-quality data.
             Specifically, we adopt designs akin to 
-            <a href="https://arxiv.org/abs/2309.10150">Q-Transformer</a>
+            <a href="https://arxiv.org/abs/2309.10150">GeRM</a>
             by employing the VLA model to replace the value function and output discretized action.
         </p>
     
@@ -184,7 +180,10 @@
         Datasets
     </h3>
 <p class="text-justify">
-We proposed an autonomous diagram to collect robot multi-modal data. In this way, We construct a large-scale robot dataset with a combination of demonstrations and sub-optimal data. It includes 5 tasks and 99 sub-tasks, totally 257k episodes (trajectories).
+We proposed an autonomous diagram to collect robot multi-modal data. In this way, We construct a large-scale robot dataset - <span style="font-weight: bold;"> QUARD-Auto</span>, with a combination of demonstrations and sub-optimal data. It includes 5 tasks and 99 sub-tasks, totally <span style="font-weight: bold;"> 257k</span> episodes (trajectories).
+This dataset will be accessible several months subsequent to its organization. Kindly visit our 
+<a href="https://github.com/Songwxuan/GeRM">GitHub page </a>
+to obtain the dataset at that time.
 </p>
 <p style="text-align:center;">
         <img src="./germ_files/task.png" class="img-responsive">
@@ -237,7 +236,7 @@ We proposed an autonomous diagram to collect robot multi-modal data. In this way
         destination, ultimately accomplishing the task. Notably, such
         trajectories were out-of-distribution of our training dataset.
         This demonstrates that GeRM inherits novel capabilities in terms of
-        dynamic adaptive path planning in the context of the scene,
+        <span style="font-weight: bold;">dynamic adaptive path planning </span>in the context of the scene,
         which means it can make decisions, plan future paths, and
         change next-step action according to the visual perception.
     </p>
