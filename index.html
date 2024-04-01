@@ -31,21 +31,21 @@
   <!-- <link rel="icon" type="image/png" href="img/seal_icon.png"> -->
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="./Q-Transformer_files/bootstrap.min.css">
-    <link rel="stylesheet" href="./Q-Transformer_files/font-awesome.min.css">
-    <link rel="stylesheet" href="./Q-Transformer_files/codemirror.min.css">
-    <link rel="stylesheet" href="./Q-Transformer_files/app.css">
+    <link rel="stylesheet" href="./germ_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./germ_files/font-awesome.min.css">
+    <link rel="stylesheet" href="./germ_files/codemirror.min.css">
+    <link rel="stylesheet" href="./germ_files/app.css">
 
-    <link rel="stylesheet" href="./Q-Transformer_files/bootstrap(1).min.css">
+    <link rel="stylesheet" href="./germ_files/bootstrap(1).min.css">
 
-    <script src="./Q-Transformer_files/jquery.min.js.下载"></script>
-    <script src="./Q-Transformer_files/bootstrap.min.js.下载"></script>
-    <script src="./Q-Transformer_files/codemirror.min.js.下载"></script>
-    <script src="./Q-Transformer_files/clipboard.min.js.下载"></script>
+    <script src="./germ_files/jquery.min.js.下载"></script>
+    <script src="./germ_files/bootstrap.min.js.下载"></script>
+    <script src="./germ_files/codemirror.min.js.下载"></script>
+    <script src="./germ_files/clipboard.min.js.下载"></script>
     
-    <script src="./Q-Transformer_files/app.js.下载"></script>
+    <script src="./germ_files/app.js.下载"></script>
 <!-- Google tag (gtag.js) -->
-<script async="" src="./Q-Transformer_files/js"></script>
+<script async="" src="./germ_files/js"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -87,7 +87,7 @@
 		   
 <!-- 		<br>
                     <a href="http://deepmind.com/">
-                    <img src="./Q-Transformer_files/deepmind.png" height="50px"> </a> -->
+                    <img src="./germ_files/deepmind.png" height="50px"> </a> -->
                     
                 </ul>
             </div>
@@ -99,14 +99,14 @@
                     <ul class="nav nav-pills nav-justified">
                         <li>
                             <a href="https://arxiv.org/pdf/2403.13358.pdf">
-                            <img src="./Q-Transformer_files/paper_small.png" height="60px">
+                            <img src="./germ_files/paper_small.png" height="60px">
                                 <h4><strong>Paper</strong></h4>
                             </a>
                         </li>
 
                         <li>
                             <a href="https://youtu.be/tjgIxsXW0JU">
-                            <img src="./Q-Transformer_files/youtube_icon_dark.png" height="60px">
+                            <img src="./germ_files/youtube_icon_dark.png" height="60px">
                                 <h4><strong>Videos</strong></h4>
                             </a>
                         </li>
@@ -117,7 +117,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
 		<!-- <p style="text-align:center;">
-	    		<img src="./Q-Transformer_files/qt_animation.gif" class="img-responsive" style="width:100%">
+	    		<img src="./germ_files/qt_animation.gif" class="img-responsive" style="width:100%">
 		</p> -->
                 <h3>
                     Abstract
@@ -136,10 +136,10 @@
         GeRM takes both demonstration and sub-optimal data as input. Then the images and instructions are tokenized and sent into the GeRM mixture-of-experts Transformer Decoder to generate action tokens. They are finally de-tokenized into discretized robot commands. The actions are used for RL objectives when training.
         </p>
         <p style="text-align:center;">
-	    <img src="./Q-Transformer_files/teaser.png" class="img-responsive" style="width:100%">
+	    <img src="./germ_files/teaser.png" class="img-responsive" style="width:100%">
 	</p>
 	<!-- <p style="text-align:center;">
-		<img src="./Q-Transformer_files/qt_robot_frames.png" class="img-responsive" style="width:70%">
+		<img src="./germ_files/qt_robot_frames.png" class="img-responsive" style="width:70%">
         </p> -->
 	<p class="text-justify">
 	GeRM MoE Decoder is a
@@ -153,20 +153,20 @@
     network parameter volume while keeping the computational
     cost basically unchanged.
 	</p><p style="text-align:center;">
-	        <img src="./Q-Transformer_files/moe.png" class="img-responsive" style="width:75%">
+	        <img src="./germ_files/moe.png" class="img-responsive" style="width:75%">
 	</p>
     <p>
         We utilize a vision-language-action (VLA) model to generate the robot action tokens, and then detokenize them into 12-dimension commands by low-level control policy.
     </p>
     <p style="text-align:center;">
-            <img src="./Q-Transformer_files/formula.png" class="img-responsive" style="width:75%">
+            <img src="./germ_files/formula.png" class="img-responsive" style="width:75%">
     </p> 
     <p>
         The 12-dimension commands include:
     </p>   
     </p>
         <p style="text-align:center;">
-                <img src="./Q-Transformer_files/parameter.png" class="img-responsive" style="width:75%">
+                <img src="./germ_files/parameter.png" class="img-responsive" style="width:75%">
         </p>
         <p class="text-justify">
             Finally, we utilize the effective offline RL algorithm - Deep Q-Learning to learn the optimal policy from mix-quality data.
@@ -187,10 +187,10 @@
 We proposed an autonomous diagram to collect robot multi-modal data. In this way, We construct a large-scale robot dataset with a combination of demonstrations and sub-optimal data. It includes 5 tasks and 99 sub-tasks, totally 257k episodes (trajectories).
 </p>
 <p style="text-align:center;">
-        <img src="./Q-Transformer_files/task.png" class="img-responsive">
+        <img src="./germ_files/task.png" class="img-responsive">
 </p>
 <p style="text-align:center;">
-    <img src="./Q-Transformer_files/dataset.png" class="img-responsive" style="width:65%">
+    <img src="./germ_files/dataset.png" class="img-responsive" style="width:65%">
 </p>
 </div>
 </div>
@@ -203,7 +203,7 @@ We proposed an autonomous diagram to collect robot multi-modal data. In this way
 	<p class="text-justify">
         We conducted a comprehensive and robust series of experiments. To ensure data fidelity and mitigate the impact of stochastic variability, our primary experiments for each model encompassed the entirety of tasks including all 99 sub-tasks, with 400 trajectories meticulously tested for each.
         </p><p style="text-align:center;">
-	    <img src="./Q-Transformer_files/exp.png" class="img-responsive" style="width:100%">
+	    <img src="./germ_files/exp.png" class="img-responsive" style="width:100%">
 	</p>
     <p>
     GeRM has the <span style="font-weight: bold;"> highest success rate</span> among all tasks. Compared to such baselines as <a href="https://arxiv.org/abs/2212.06817">RT-1</a> and other varieties of GeRM, it effectively learns from mix-quality data, outperforms other methods, and demonstrates superior capabilities in multi-tasks.
@@ -216,7 +216,7 @@ We proposed an autonomous diagram to collect robot multi-modal data. In this way
         This evaluation exclusively trained with demonstrations underscores GeRM's proficiency in <span style="font-weight: bold;"> optimizing data utilization strategies</span>.
 	</p>
 	  <p style="text-align:center;">
-	    <img src="./Q-Transformer_files/trend.png" class="img-responsive" style="width:100%">
+	    <img src="./germ_files/trend.png" class="img-responsive" style="width:100%">
 	</p>
     <p>
         Solid lines represent the success rate, dotted lines represent the final success rate for 20 epochs, and dashed lines represent loss. Note: RL approaches employ MSE loss, which should be scaled by 0.1, while imitation learning ways employ Cross Entropy as the loss function.
