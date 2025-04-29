@@ -25,7 +25,7 @@ We hope this code helps the community in advancing the field of robotics! 🚀
 
 ## Future Directions
 
-💡 One promising direction for future work is to extend our code to apply **Visual Language Attention (VLA)** training to robotic arms. 🤖
+💡 One promising direction for future work is to extend our code to apply it to robotic arms. 🤖
 
 ## Environment Configuration and Dataset
 
