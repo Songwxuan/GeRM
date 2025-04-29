@@ -1,7 +1,7 @@
 # GeRM: A Generalist Robotic Model with Mixture-of-Experts for Quadruped Robot
 
 ## IROS 2024
-📍 *This paper was accepted to be presented at **IROS 2024** and I had the honor of delivering an oral presentation about it in **October 2024** in **Abu Dhabi**.* 🎤🌍
+📍 *This paper was accepted to be presented at **IROS 2024** and I had the honor of delivering an oral talk about it in **October 2024** in **Abu Dhabi**.* 🎤🌍
 
 Welcome to the official repository of **GeRM: A Generalist Robotic Model with Mixture-of-Experts for Quadruped Robot. It is a vision-language-action(VLA) model with a mixture-of-experts(MoE) architecture and trained in a offline reinforcement learning manner.** 🤖🐾 
 
