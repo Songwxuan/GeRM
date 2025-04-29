@@ -1,1 +1,7 @@
 dataset_info/sim_quadruped_data_info.json
+pytorch_robotics_transformer/universal-sentence-encoder-multilingual-3-onnx/model.onnx
+pytorch_robotics_transformer/universal_sentence_encoder_large_5_onnx/model.onnx
+.git/objects/d4/16a25aa99a4adcf3e02fef8d5ae91a0602408f
+.git/objects/pack/pack-f14d671b2ad1903419411b8d51aef756a09162a3.pack
+pytorch_robotics_transformer/universal-sentence-encoder-multilingual-3-onnx/model.onnx
+pytorch_robotics_transformer/universal_sentence_encoder_large_5_onnx/model.onnx
